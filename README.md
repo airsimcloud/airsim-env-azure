@@ -38,7 +38,9 @@ az vm deallocate --resource-group MyResourceGroup --name MyVMName
 - Start debugging with Python
 
 ## Running with Docker
-This repository is already prepared to run a prebuilt AirSim binary and Python code using Docker.
+Once both the AirSim environment and the Python application are ready, you can package everything as a Docker image. This sample project is already prepared to run a prebuilt AirSim binary and Python code using Docker.
+
+This would be a perfect scenario when you want to run the simulation at scale. For instance, you could have several different configurations for the same simulation and execute them in a parallel, unattended way using a Docker image on Azure Container Services
 
 Since AirSim requires access to the host GPU, it is required to use a Docker runtime that supports it. For more information about running AirSim in Docker, click [here](https://github.com/microsoft/AirSim/blob/master/docs/docker_ubuntu.md).
 
@@ -63,3 +65,7 @@ Once you have a zip file with the new AirSim environment (or prefer to use one f
 If you are using the docker image, you also need a linux binary zip file and modify the following Docker-related files:
 - In [`docker/Dockerfile`](docker/Dockerfile), modify the `AIRSIM_BINARY_ZIP_URL` and `AIRSIM_BINARY_ZIP_FILENAME` ENV declarations with the new values
 - In [`docker/docker-entrypoint.sh`](docker/docker-entrypoint.sh), modify `AIRSIM_EXECUTABLE` with the new value 
+
+## Maintaining this project
+
+Several components of this project (ARM templates, initialization scripts and VSCode tasks) directly depend on the current directory structures file names and repository locations. When planning to modify/fork any of those, make sure to check every script and template to make any required adjustment.
